@@ -11,7 +11,11 @@ set -ouex pipefail
 
 dnf5 install --setopt=install_weak_deps=False -y \
     libvirt \
+    libvirt-client \
     libvirt-daemon-kvm
+
+dnf5 remove -y \
+    ublue-brew \
 
 # Use a COPR Example:
 #
