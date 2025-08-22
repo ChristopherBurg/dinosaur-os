@@ -14,17 +14,17 @@ set -ouex pipefail
 #
 # https://github.com/ublue-os/bluefin/blob/main/packages.json
 dnf5 install -y \
-    libvirt \
+    libvirt
 #    libvirt-nss \
-    qemu \
-	qemu-char-spice \
-	qemu-device-display-virtio-gpu \
-	qemu-device-display-virtio-vga \
-	qemu-device-usb-redirect \
-	qemu-img \
-	qemu-system-x86-core \
-	qemu-user-binfmt \
-	qemu-user-static \
+#    qemu \
+#	qemu-char-spice \
+#	qemu-device-display-virtio-gpu \
+#	qemu-device-display-virtio-vga \
+#	qemu-device-usb-redirect \
+#	qemu-img \
+#	qemu-system-x86-core \
+#	qemu-user-binfmt \
+#	qemu-user-static \
 
 dnf5 remove -y \
     ublue-brew \
