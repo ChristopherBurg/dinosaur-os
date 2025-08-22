@@ -85,3 +85,5 @@ for file in discourse documentation system-update; do
         sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/"$file".desktop
     fi
 done
+
+rm /usr/share/glib-2.0/schemas/zz0-bluefin-modifications.gschema.override

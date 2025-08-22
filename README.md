@@ -18,4 +18,4 @@ I remove ublue-brew because I found brew janky when I ran macOS and haven't seen
 
 # Other Changes
 
-I hide the Discourse and Documentation launch icons. I don't use these so they're unwanted clutter in my laucher.
+I hide the Discourse and Documentation launch icons. I don't use these so they're unwanted clutter in my launcher. I also hide the System Updater. It opens a terminal and runs ujust update and then closes the terminal. I don't like that the terminal disappears after completion and I can't open the terminal and type the same command myself.
