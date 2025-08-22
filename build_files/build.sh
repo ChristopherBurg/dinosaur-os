@@ -9,9 +9,13 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
+# I pulled the libvirt package list from the Bluefin package list for the dx
+# variant available here:
+#
+# https://github.com/ublue-os/bluefin/blob/main/packages.json
 dnf5 install -y \
     libvirt \
-    libvirt-nss \
+#    libvirt-nss \
     qemu \
 	qemu-char-spice \
 	qemu-device-display-virtio-gpu \
