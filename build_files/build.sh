@@ -15,17 +15,21 @@ set -ouex pipefail
 # https://github.com/ublue-os/bluefin/blob/main/packages.json
 dnf5 install -y \
     libvirt
-#    libvirt-nss \
-#    qemu \
-#	qemu-char-spice \
-#	qemu-device-display-virtio-gpu \
-#	qemu-device-display-virtio-vga \
-#	qemu-device-usb-redirect \
-#	qemu-img \
-#	qemu-system-x86-core \
-#	qemu-user-binfmt \
-#	qemu-user-static \
+    qemu \
+	qemu-char-spice \
+	qemu-device-display-virtio-gpu \
+	qemu-device-display-virtio-vga \
+	qemu-device-usb-redirect \
+	qemu-img \
+	qemu-system-x86-core \
+	qemu-user-binfmt \
+	qemu-user-static \
 
+# I don't like installing GNOME extensions as system packages. I far prefer to
+# install them in user space using the Extension Manager flatpak.
+#
+# I also dislike brew. It was janky back when I ran macOS and there are far
+# better options for Linux.
 dnf5 remove -y \
     gnome-tweaks \
     gnome-shell-extension-user-theme \
