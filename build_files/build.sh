@@ -29,6 +29,13 @@ dnf5 install -y \
 dnf5 remove -y \
     ublue-brew \
 
+# I typically add my user to the libvirt group so I can start up virtual machines
+# without entering a sudo password. The group is missing from the standard Bluefin
+# install. I took this line from /usr/lib/group from Bluefin DX.
+if ! grep -q "^libvirt:" /usr/lib/group; then
+    echo "libvirt:x:965:" >> /usr/lib/group
+fi
+
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
