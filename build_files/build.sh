@@ -27,12 +27,16 @@ dnf5 install -y \
 	qemu-user-binfmt \
 	qemu-user-static \
 
+# I remove fuse-encfs because according to the README in the repository, the
+# project isn't actively maintained. (https://github.com/vgough/encfs)
+#
 # I don't like installing GNOME extensions as system packages. I far prefer to
 # install them in user space using the Extension Manager flatpak.
 #
 # I also dislike brew. It was janky back when I ran macOS and there are far
 # better options for Linux.
 dnf5 remove -y \
+    fuse-encfs \
     gnome-tweaks \
     gnome-shell-extension-user-theme \
     gnome-shell-theme-yaru \
@@ -72,7 +76,11 @@ systemctl enable libvirtd.service
 # I don't like hyperlinks polluting my application menu. The discourse.desktop
 # and documentation.desktop files simply open links to websites. Therefore, I
 # set them to hidden by injecting Hidden=true into them.
-for file in discourse documentation; do
+#
+# system-update.desktop opens a terminal and executes ujust-update. What I don't
+# like is that the window closes once it's done. I'd rather open a terminal myself
+# and type the command.
+for file in discourse documentation system-update; do
     if [[ -f "/usr/share/applications/$file.desktop" ]]; then
         sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/"$file".desktop
     fi
