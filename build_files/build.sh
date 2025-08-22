@@ -14,7 +14,7 @@ set -ouex pipefail
 #
 # https://github.com/ublue-os/bluefin/blob/main/packages.json
 dnf5 install -y \
-    libvirt
+    libvirt \
     qemu \
 	qemu-char-spice \
 	qemu-device-display-virtio-gpu \
