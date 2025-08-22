@@ -39,7 +39,6 @@ dnf5 remove -y \
     fuse-encfs \
     gnome-tweaks \
     gnome-shell-extension-user-theme \
-    gnome-shell-theme-yaru \
     gnome-shell-extension-gsconnect \
     gnome-shell-extension-appindicator \
     gnome-shell-extension-dash-to-dock \
@@ -49,6 +48,7 @@ dnf5 remove -y \
     gnome-shell-extension-caffeine \
     gnome-shell-extension-blur-my-shell \
     ublue-brew \
+    yaru-theme \
 
 # I typically add my user to the libvirt group so I can start up virtual machines
 # without entering a sudo password. The group is missing from the standard Bluefin
@@ -85,5 +85,3 @@ for file in discourse documentation system-update; do
         sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/"$file".desktop
     fi
 done
-
-rm /usr/share/glib-2.0/schemas/zz0-bluefin-modifications.gschema.override
