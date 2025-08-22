@@ -13,6 +13,8 @@ set -ouex pipefail
 # variant available here:
 #
 # https://github.com/ublue-os/bluefin/blob/main/packages.json
+#
+# I left out libvirt-nss since I don't need it.
 dnf5 install -y \
     libvirt \
     qemu \
@@ -66,3 +68,12 @@ fi
 systemctl enable podman.socket
 
 systemctl enable libvirtd.service
+
+# I don't like hyperlinks polluting my application menu. The discourse.desktop
+# and documentation.desktop files simply open links to websites. Therefore, I
+# set them to hidden by injecting Hidden=true into them.
+for file in discourse documentation; do
+    if [[ -f "/usr/share/applications/$file.desktop" ]]; then
+        sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/"$file".desktop
+    fi
+done
