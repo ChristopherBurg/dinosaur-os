@@ -27,11 +27,25 @@ dnf5 install -y \
 #	qemu-user-static \
 
 dnf5 remove -y \
+    gnome-tweaks \
+    gnome-shell-extension-user-theme \
+    gnome-shell-theme-yaru \
+    gnome-shell-extension-gsconnect \
+    gnome-shell-extension-appindicator \
+    gnome-shell-extension-dash-to-dock \
+    gnome-shell-extension-logo-menu \
+    gnome-shell-extension-tailscale-gnome-qs \
+    gnome-shell-extension-search-light \
+    gnome-shell-extension-caffeine \
+    gnome-shell-extension-blur-my-shell \
     ublue-brew \
 
 # I typically add my user to the libvirt group so I can start up virtual machines
 # without entering a sudo password. The group is missing from the standard Bluefin
 # install. I took this line from /usr/lib/group from Bluefin DX.
+#
+# I check to verify libvirt isn't present first just in case it gets added in a
+# future release.
 if ! grep -q "^libvirt:" /usr/lib/group; then
     echo "libvirt:x:965:" >> /usr/lib/group
 fi
