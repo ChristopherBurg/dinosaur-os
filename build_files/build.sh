@@ -9,10 +9,18 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
-dnf5 install --setopt=install_weak_deps=False -y \
+dnf5 install -y \
     libvirt \
-    libvirt-client \
-    libvirt-daemon-kvm
+    libvirt-nss \
+    qemu \
+	qemu-char-spice \
+	qemu-device-display-virtio-gpu \
+	qemu-device-display-virtio-vga \
+	qemu-device-usb-redirect \
+	qemu-img \
+	qemu-system-x86-core \
+	qemu-user-binfmt \
+	qemu-user-static \
 
 dnf5 remove -y \
     ublue-brew \
