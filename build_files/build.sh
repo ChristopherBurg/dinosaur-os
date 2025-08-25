@@ -41,8 +41,6 @@ dnf5 install -y \
 	qemu-system-x86-core \
 	qemu-user-binfmt \
 	qemu-user-static \
-#    virt-manager \
-#    setools-gui \
 
 # I remove fuse-encfs because according to the README in the repository, the
 # project isn't actively maintained. (https://github.com/vgough/encfs)
@@ -73,6 +71,24 @@ if ! grep -q "^libvirt:" /usr/lib/group; then
     echo "libvirt:x:965:" >> /usr/lib/group
 fi
 
+# I want to append a few groups to my /etc/group file so I can add my user
+# account to them. The groups that are added are listed below this function.
+append_group() {
+    local group_name="$1"
+    if ! grep -q "^$group_name:" /etc/group; then
+        echo "Appending $group_name to /etc/group"
+        grep "^$group_name:" /usr/lib/group | tee -a /etc/group >/dev/null
+    fi
+}
+
+# I add my account to the input group so I can use Input Remapper to remap my
+# extra trackball buttons.
+append_group input
+
+# I add my account to the libvirt group so I can create, run, and destroy
+# virtual machines.
+append_group libvirt
+
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
@@ -84,6 +100,7 @@ fi
 
 systemctl enable podman.socket
 
+# This service fixes the SELinux types for /var/lib/libvirt and /var/log/libvirt.
 systemctl enable libvirt-workaround.service
 
 systemctl enable libvirtd.service
@@ -95,8 +112,18 @@ systemctl enable libvirtd.service
 # system-update.desktop opens a terminal and executes ujust-update. What I don't
 # like is that the window closes once it's done. I'd rather open a terminal myself
 # and type the command.
-for file in discourse documentation system-update; do
-    if [[ -f "/usr/share/applications/$file.desktop" ]]; then
-        sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/"$file".desktop
+hide_launcher() {
+    local launcher="$1"
+    if [[ -f "/usr/share/applications/$launcher.desktop" ]]; then
+        sed -i 's@\[Desktop Entry\]@\[Desktop Entry\]\nHidden=true@g' /usr/share/applications/"$launcher".desktop
     fi
-done
+}
+
+# Hide the launcher for the hyperlink to the Discourse page.
+hide_launcher discourse
+
+# Hide the launcher for the hyperlink to the documentation page.
+hide_launcher documentation
+
+# Hide the launcher for launching ujust update in a terminal.
+hide_launcher system-update
