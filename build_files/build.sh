@@ -17,6 +17,11 @@ set -ouex pipefail
 # I left out libvirt-nss since I don't need it.
 dnf5 install -y \
     libvirt \
+    libvirt-gconfig \
+    libvirt-glib \
+    libvirt-gobject \
+    libvirt-libs \
+    libvirt-ssh-proxy \
     qemu \
 	qemu-char-spice \
 	qemu-device-display-virtio-gpu \
