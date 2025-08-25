@@ -37,6 +37,7 @@ dnf5 install -y \
 	qemu-system-x86-core \
 	qemu-user-binfmt \
 	qemu-user-static \
+    virt-manager \
 
 # I remove fuse-encfs because according to the README in the repository, the
 # project isn't actively maintained. (https://github.com/vgough/encfs)
@@ -56,7 +57,6 @@ dnf5 remove -y \
     gnome-shell-extension-caffeine \
     gnome-shell-extension-blur-my-shell \
     yaru-theme \
-    virt-manager \
 
 # I typically add my user to the libvirt group so I can start up virtual machines
 # without entering a sudo password. The group is missing from the standard Bluefin
