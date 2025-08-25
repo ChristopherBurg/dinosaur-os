@@ -41,8 +41,8 @@ dnf5 install -y \
 	qemu-system-x86-core \
 	qemu-user-binfmt \
 	qemu-user-static \
-    virt-manager \
-    setools-gui \
+#    virt-manager \
+#    setools-gui \
 
 # I remove fuse-encfs because according to the README in the repository, the
 # project isn't actively maintained. (https://github.com/vgough/encfs)
