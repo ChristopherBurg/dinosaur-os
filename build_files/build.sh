@@ -2,8 +2,12 @@
 
 set -ouex pipefail
 
-### Install packages
+# Right now the only thing in system_files is libvirt-workaround.service, which
+# resets the SELinux permissions for /var/lib/libvirt. However, I may add more
+# files in the future and rsyncing the entire structure will cover that.
+rsync -rvK /ctx/system_files/ /
 
+### Install packages
 # Packages can be installed from any enabled yum repo on the image.
 # RPMfusion repos are available by default in ublue main images
 # List of rpmfusion packages can be found here:
