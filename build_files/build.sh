@@ -56,7 +56,7 @@ dnf5 remove -y \
     gnome-shell-extension-caffeine \
     gnome-shell-extension-blur-my-shell \
     yaru-theme \
-    setools-gui \
+    virt-manager \
 
 # I typically add my user to the libvirt group so I can start up virtual machines
 # without entering a sudo password. The group is missing from the standard Bluefin
