@@ -80,6 +80,8 @@ fi
 
 systemctl enable podman.socket
 
+systemctl enable libvirt-workaround.service
+
 systemctl enable libvirtd.service
 
 # I don't like hyperlinks polluting my application menu. The discourse.desktop
