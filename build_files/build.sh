@@ -9,10 +9,16 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# I pulled the libvirt package list from the Bluefin package list for the dx
-# variant available here:
+# My goal is to get libvirt installed and running as it runs on my Fedora
+# Workstation systems. To this end I install a list of libvirt and qemu
+# packages.
+#
+# This list is a combination of the package list from bluefin-dx and Fedora
+# Workstation. The bluefin-dx package list can be found here:
 #
 # https://github.com/ublue-os/bluefin/blob/main/packages.json
+#
+# I pulled the Fedora Workstation packages from a running installation.
 #
 # I left out libvirt-nss since I don't need it.
 dnf5 install -y \
@@ -50,6 +56,7 @@ dnf5 remove -y \
     gnome-shell-extension-caffeine \
     gnome-shell-extension-blur-my-shell \
     yaru-theme \
+    setools-gui \
 
 # I typically add my user to the libvirt group so I can start up virtual machines
 # without entering a sudo password. The group is missing from the standard Bluefin
