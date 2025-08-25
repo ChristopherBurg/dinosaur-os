@@ -14,8 +14,6 @@ I remove a number of packages that Bluefin adds on top of Silverblue. fuse-encfs
 
 I pull out gnome-tweaks since I don't use any of its features. I also remove many of the gnome-shell-extension packages. I install my extensions in user space via the Extension Manager flatpak.
 
-I remove ublue-brew because I found brew janky when I ran macOS and haven't seen anything to change my feelings since then. There are better options on Linux.
-
 # Other Changes
 
 I hide the Discourse and Documentation launch icons. I don't use these so they're unwanted clutter in my launcher. I also hide the System Updater. It opens a terminal and runs ujust update and then closes the terminal. I don't like that the terminal disappears after completion and I can't open the terminal and type the same command myself.

@@ -32,9 +32,6 @@ dnf5 install -y \
 #
 # I don't like installing GNOME extensions as system packages. I far prefer to
 # install them in user space using the Extension Manager flatpak.
-#
-# I also dislike brew. It was janky back when I ran macOS and there are far
-# better options for Linux.
 dnf5 remove -y \
     fuse-encfs \
     gnome-tweaks \
@@ -47,7 +44,6 @@ dnf5 remove -y \
     gnome-shell-extension-search-light \
     gnome-shell-extension-caffeine \
     gnome-shell-extension-blur-my-shell \
-    ublue-brew \
     yaru-theme \
 
 # I typically add my user to the libvirt group so I can start up virtual machines
