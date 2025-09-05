@@ -31,6 +31,16 @@ dnf5 install -y \
 	qemu-user-binfmt \
 	qemu-user-static \
 
+# I typically add my user to the libvirt group so I can start up virtual machines
+# without entering a sudo password. The group is missing from the standard Bluefin
+# install. I took this line from /usr/lib/group from Bluefin DX.
+#
+# I check to verify libvirt isn't present first just in case it gets added in a
+# future release.
+if ! grep -q "^libvirt:" /usr/lib/group; then
+    echo "libvirt:x:965:" >> /usr/lib/group
+fi
+
 # This service fixes the SELinux types for /var/lib/libvirt and /var/log/libvirt.
 systemctl enable libvirt-workaround.service
 
