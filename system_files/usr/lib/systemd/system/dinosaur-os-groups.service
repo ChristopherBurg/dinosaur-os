@@ -1,0 +1,12 @@
+[Unit]
+Description=Add the libvirt group to /etc/group.
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/dinosaur-os-groups
+Restart=on-failure
+RestartSec=30
+StartLimitInterval=0
+
+[Install]
+WantedBy=default.target
