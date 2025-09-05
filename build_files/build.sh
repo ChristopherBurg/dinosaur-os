@@ -13,6 +13,12 @@ rsync -rvK /ctx/system_files/ /
 
 systemctl enable podman.socket
 
+# Clean up.
+/ctx/build_files/clean-stage.sh
+mkdir -p /var/tmp &&
+    chmod -R 1777 /var/tmp
+ostree container commit
+
 ### Install packages
 # Packages can be installed from any enabled yum repo on the image.
 # RPMfusion repos are available by default in ublue main images
