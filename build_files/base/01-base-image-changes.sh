@@ -10,16 +10,23 @@ set -ouex pipefail
 dnf5 remove -y \
     fuse-encfs \
     gnome-tweaks \
-    gnome-shell-extension-user-theme \
-    gnome-shell-extension-gsconnect \
-    gnome-shell-extension-appindicator \
-    gnome-shell-extension-dash-to-dock \
-    gnome-shell-extension-logo-menu \
-    gnome-shell-extension-tailscale-gnome-qs \
-    gnome-shell-extension-search-light \
-    gnome-shell-extension-caffeine \
-    gnome-shell-extension-blur-my-shell \
+#    gnome-shell-extension-user-theme \
+#    gnome-shell-extension-gsconnect \
+#    gnome-shell-extension-appindicator \
+#    gnome-shell-extension-dash-to-dock \
+#    gnome-shell-extension-logo-menu \
+#    gnome-shell-extension-tailscale-gnome-qs \
+#    gnome-shell-extension-search-light \
+#    gnome-shell-extension-caffeine \
+#    gnome-shell-extension-blur-my-shell \
     yaru-theme \
+
+# Staring in November 2025, Bluefin started installing the default GNOME
+# extensions from git. Because of this, I now remove the directories for each
+# extension.
+
+# Remove the AppIndicator extension.
+rm -rf /usr/share/gnome-shell/extensions/appindicatorsupport@rgcjonas.gmail.com/
 
 # I don't like hyperlinks polluting my application menu. The discourse.desktop
 # and documentation.desktop files simply open links to websites. Therefore, I
