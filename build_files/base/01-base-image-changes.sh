@@ -10,15 +10,6 @@ set -ouex pipefail
 dnf5 remove -y \
     fuse-encfs \
     gnome-tweaks \
-#    gnome-shell-extension-user-theme \
-#    gnome-shell-extension-gsconnect \
-#    gnome-shell-extension-appindicator \
-#    gnome-shell-extension-dash-to-dock \
-#    gnome-shell-extension-logo-menu \
-#    gnome-shell-extension-tailscale-gnome-qs \
-#    gnome-shell-extension-search-light \
-#    gnome-shell-extension-caffeine \
-#    gnome-shell-extension-blur-my-shell \
     yaru-theme \
 
 # Staring in November 2025, Bluefin started installing the default GNOME
