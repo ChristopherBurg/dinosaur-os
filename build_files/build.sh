@@ -11,6 +11,10 @@ rsync -rvK /ctx/system_files/ /
 # Make my changes to the base Bluefin image.
 /ctx/build_files/base/01-base-image-changes.sh
 
+# Disable brew-setup.service and prevent uupd.service from updating Homebrew
+# packages.
+/ctx/build_files/base/02-disable-brew.sh
+
 systemctl enable podman.socket
 
 # Clean up.

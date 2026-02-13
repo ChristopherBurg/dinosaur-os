@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# This script removes Homebrew from a Bluefin system. It effectively undoes
+# the steps performed by brew-setup.service.
+
+# brew-setup.service creates a home directory for Brew where all of the Brew
+# packages are installed. This removes that directory.
+/usr/bin/rm --recursive --force /var/home/linuxbrew
+
+# brew-setup.service concludes by creating an empty file in /etc/ name .linuxbrew.
+# The service module users this file to determine whether or not Homebrew is
+# setup. This step removes that file, which should cause brew-setup.service
+# to know that Homebrew isn't installed on this system.
+/usr/bin/rm --force /etc/.linuxbrew

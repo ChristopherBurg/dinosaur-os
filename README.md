@@ -2,19 +2,19 @@
 
 This is my customized version of Bluefin.
 
-I'm trying to keep the changes to a minimum. The main thing I do is add libvirt. I also remove several packages that I don't use or want.
+I'm trying to keep the changes to a minimum. The main things I do are install and configure libvirt and facilitate the removal of Homebrew. I also remove several packages that I don't use or want.
 
-Needless to say, this image is opinionated. I don't expect many people to use this image directly. I do hope that my build script and supporting documents will be helpful to somebody making their own image though.
+This image is opinionated. I don't expect many people to use this image directly. I do hope that my build script and supporting documents will be helpful to somebody making their own image though.
 
 # Packages Installed
 
-libvirt and qemu are installed. These packages are available in Bluefin Developer Experience (DX). However, rebasing to Bluefin DX brings a lot of additional packages such as Docker and Visual Studio Code that I don't use. I prefer to avoid adding unnecessary packages because it increases the attack surface of the system. Therefore, I created this bootc image which only includes the additions that I use.
+libvirt and qemu are installed. These packages are available in Bluefin Developer Experience (DX). However, rebasing to Bluefin DX brings a lot of additional packages such as Docker and Visual Studio Code that I don't use. I prefer to avoid adding unnecessary packages because they increases the attack surface of the system.
 
 # Packages Removed
 
-I remove a number of packages that Bluefin adds on top of Silverblue. fuse-encfs isn't actively maintained according to the [repository](https://github.com/vgough/encfs) so I removed it.
+I remove a number of packages that Bluefin adds on top of Silverblue. fuse-encfs isn't actively maintained according to the [repository](https://github.com/vgough/encfs) so I remove it.
 
-I remove gnome-tweaks since I don't use any of its features. I also remove many of the gnome-shell-extension packages. I install my extensions in user space via the Extension Manager flatpak.
+I remove gnome-tweaks since I don't use any of its features. I also remove the GNOME extensions.
 
 # Getting libvirt Working
 
@@ -28,8 +28,18 @@ The other hurdle for getting libvirt working on Bluefin is SELinux. By default /
 
 Bluefin DX gets around this with the libvirt-workaround systemd service. This image copies that service file into /usr/lib/systemd/system and enables it. It also uses tmpfiles.d to create /var/log/libvirt temporarily so the SELinux permissions can be set by the libvirt-workaround service (/var/lib/libvirt is created by default on Fedora so it doesn't need to be temporarily created in this fashion).
 
+# Disable Brew
+
+Homebrew doesn't work properly unless you're using a user account with a UID of 1000. On a Fedora based system like Bluefin, the first created user has the UID of 1000. That means brew doesn't work for any user besides the first created one. I typically create two accounts on my personal system. The first is an account with administrator privileges, the second is a standard user account. I use the latter for my day to day tasks. 
+
+I could adjust Brew to work with the user account with a UID of 1001 (which the second account on a Fedora system receives by default), but Homebrew is fundamentally broken due to this design limitation. I'd rather remove and disable it than try to workaround its poor design (I also think Homebrew in general is poorly designed). However, I acknowledge that other people may use it so I don't remove it if it's already installed and don't prevent users from installing it. 
+
+Homebrew is setup on Bluefin using the `brew-setup.service` systemd module, which is enabled by default in Bluefin. Dinosaur OS disables it by default. You can setup Homebrew by starting or enabling this service.
+
+The script /usr/libexec/remove-brew will remove Homebrew if it's already installed. This script effectively removes everything `brew-setup.service` creates. Therefore, `brew-setup.service` should be able to reinstall Homebrew if desired. 
+
+One important caveat to note is that this image adds `--disable-module-brew` to the ExecStart line of `/usr/lib/systemd/system/uupd.service`, which disables the service from updating installed Homebrew packages. This is done because `uudp.service` will throw an error if Homebrew isn't installed unless the `--disable-module-brew` argument is present. This isn't undone if `brew-setup.service` is run, which means Homebrew packages won't be automatically updated on the system. The only easy way to enable automatic Homebrew updates on Dinosaur OS is to copy `/usr/lib/systemd/system/uupd.service` to `/etc/systemd/system/uupd.services` and remove `--disable-module-brew` from the ExecStart line.
+
 # Other Changes
 
-I hide the Discourse and Documentation launch icons. I don't use these so they're unwanted clutter in my launcher. I also hide the System Updater. It opens a terminal and runs `ujust update` and then closes the terminal. `ujust update` updates both the bootc image and installed flatpaks. I prefer to update my system image and installed flatpaks at different intervals. I also dislike the behavior of the terminal closing once the command finishes executing. Therefore, I don't use System Updated and it's also unwanted clutter for me.
-
-I also copy the input group from /usr/lib/group to /etc/group so I can add my user account to it. Membership in this group is necessary for using Input Remapper. I use Input Remapper to remap buttons on my trackballs.
+I hide the Discourse and Documentation launch icons. I don't use these so they're unwanted clutter in my launcher. I also hide the System Updater. It opens a terminal and runs `ujust update` and then closes the terminal. `ujust update` updates both the bootc image and installed flatpaks. `uupd.service` already does this periodically. Therefore, I don't use System Updated and it's also unwanted clutter for me.
