@@ -4,8 +4,8 @@ COPY /system_files /system_files
 COPY /build_files /build_files
 
 # Base Image
-# FROM ghcr.io/ublue-os/bluefin:stable
-FROM ghcr.io/projectbluefin/bluefin:stable
+FROM ghcr.io/ublue-os/bluefin:stable
+# FROM ghcr.io/projectbluefin/bluefin:stable
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest
